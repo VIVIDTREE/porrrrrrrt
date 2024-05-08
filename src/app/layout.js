@@ -12,8 +12,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang='ko'>
       <body className='font font-color bg-color layout'>
-        <LoadManagerWithRedux>{children}</LoadManagerWithRedux>
-        <SpeedInsights />
+        <LoadManagerWithRedux>
+          {children}
+          <SpeedInsights />
+        </LoadManagerWithRedux>
       </body>
     </html>
   );

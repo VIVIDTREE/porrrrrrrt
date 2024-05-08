@@ -30,6 +30,9 @@ function DetailImg({ image, images, files }) {
       dispatch(setLoadedAction());
     }
   }, [loadedImagesCount, totalImages, dispatch]);
+  useEffect(() => {
+    setLoadedImagesCount(0); // 이미지 배열이 바뀔 때 카운터를 리셋
+  }, [files, image, images]);
 
   useEffect(() => {
     const updateContainerHeight = () => {
@@ -64,6 +67,7 @@ function DetailImg({ image, images, files }) {
               onLoadingComplete={() =>
                 setLoadedImagesCount((count) => count + 1)
               }
+              onError={() => setLoadedImagesCount((count) => count + 1)}
               unoptimized={allImages[selectedImageIndex].url.endsWith(".webp")}
             />
           )}
@@ -111,6 +115,7 @@ function DetailImg({ image, images, files }) {
                   onLoadingComplete={() =>
                     setLoadedImagesCount((count) => count + 1)
                   }
+                  onError={() => setLoadedImagesCount((count) => count + 1)}
                   unoptimized={img.url.endsWith(".webp")}
                 />
               </div>
