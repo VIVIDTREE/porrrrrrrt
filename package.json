@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@redux-devtools/extension": "^3.3.0",
-    "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/client": "^6.15.5",
     "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.34.0",
@@ -28,11 +27,8 @@
     "swiper": "^11.0.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.0",
-    "@babel/preset-env": "^7.24.0",
     "@stackbit/cms-sanity": "^0.2.50",
     "@stackbit/types": "^0.11.14",
-    "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.1.3"
   }
