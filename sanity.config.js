@@ -14,6 +14,7 @@ export default defineConfig({
   basePath: "/sanity",
   projectId: "xi2zimpb",
   dataset: "production",
+  useCdn: true,
   // Add and edit the content schema in the './sanity/schema' folder
   schema,
   plugins: [
