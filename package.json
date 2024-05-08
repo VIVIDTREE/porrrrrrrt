@@ -1,0 +1,36 @@
+{
+  "name": "portfolio-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "sanity-dev": "sanity dev"
+  },
+  "dependencies": {
+    "@redux-devtools/extension": "^3.3.0",
+    "@sanity/block-content-to-react": "^3.0.0",
+    "@sanity/client": "^6.15.5",
+    "@sanity/image-url": "^1.0.2",
+    "@sanity/vision": "^3.34.0",
+    "next": "^14.2.3",
+    "next-sanity": "^7.1.4",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-redux": "^9.1.0",
+    "redux": "^5.0.1",
+    "redux-thunk": "^3.1.0",
+    "sanity": "^3.34.0",
+    "styled-components": "^6.1.8",
+    "swiper": "^11.0.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.1.3"
+  }
+}

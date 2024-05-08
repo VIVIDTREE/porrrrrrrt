@@ -1,0 +1,35 @@
+/*----------------더보기 영역-----*/
+.view-all-warp {   display: flex; flex-wrap: nowrap; gap: 1rem; width: 100%;}
+.cate-img-cir { display: flex; flex-wrap: wrap; border-radius: 999px; border: 1px solid #000; flex: 1 1 20%;}
+.cate-img-cir2 { display: grid; flex-wrap: wrap; border-radius: 999px; object-fit: cover; flex: 1 1 20%; position: relative;}
+.cir-slide {opacity: 0; transition: opacity 0.3s ease-in-out; grid-area: 1/1;}
+.cir-slide.active {opacity: 1;}
+.cate-img-cir2 img {width: 100%; height: 100%; object-fit: cover; border-radius: 999px;}
+.view-all-text { display: flex; flex-wrap: wrap; flex-direction: column; gap: 2rem; align-items: center; justify-content: center; flex: 1 0 20%; align-content: center; text-align: center;}
+.btn-cir-big-wtn { border-radius: 999px; border: 1px solid #000; padding: 0.5rem 3rem; display: flex; gap: 0.625rem; align-items: center;
+justify-content: center;}
+
+@media (max-width: 2180px) {
+.view-all-warp { flex-basis: 25vw;}
+.cate-img-cir:last-child {display: none;}
+}
+
+@media (max-width: 1440px) {
+.view-all-warp { flex-basis: 33.3333333vw;}
+.cate-img-cir:first-child {display: none;}
+.cate-img-cir:last-child {display: none;}
+}
+@media (max-width: 1080px) {
+.view-all-warp {flex-basis: 50vw;}
+.cate-img-cir:first-child {display: none;}
+.cate-img-cir:last-child {display: none;}
+}
+@media (max-width: 768px) {
+.view-all-warp {gap: 1.5rem; flex-direction: column;}
+.view-all-text {gap: 1.5rem;}
+.cate-img-cir:nth-child(4) {display: none;}
+}
+@media (max-width: 480px) {
+.view-all-warp {flex-basis: 100vw; flex-direction: column;}
+}
+/*----------------더보기 영역 끝-----*/

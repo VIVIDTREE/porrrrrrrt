@@ -1,0 +1,12 @@
+/*----------------컨텍트 영역-----*/
+.contact-box { display: inline-flex; flex-direction: column; align-items: center; gap: 2rem; width: 100%;}
+.cir-title { display: flex; justify-content: center; align-items: center; gap: 0.625rem; }
+.contact2 { position: absolute;}
+.ellipse-1 { border: 1px solid #000; border-radius: 50%; width: 14.4rem; height: 3.6rem; }
+.contact-text { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; }
+.s-btn-blk { background: #000; border-radius: 999px; padding: 0.25rem 1rem; }
+.email-me { color: #ffffff; text-align: center;}
+
+@media (max-width: 768px) {
+}
+/*----------------컨텍트 영역 끝-----*/

@@ -1,0 +1,85 @@
+/*----------------대카테고리 영역-----*/
+.cate-big-warp {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+.cate-big {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4rem;
+  padding: 0 3rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  width: 100%;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+
+  /* Chrome, Safari, Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.cate-big2 {
+  padding: 3rem 0;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: flex-start;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.cate-big-detail {
+  padding: 0rem 1rem 3rem 1rem;
+}
+.cate-big-detail-text {
+  text-align: center;
+  position: relative;
+}
+.cate-big-title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cate-big-num {
+  text-align: left;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.contact {
+  text-align: right;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.cate-big2.active {
+}
+.cate-big2.unactive:hover {
+  color: #000;
+  transition: 0.3s ease-in-out;
+}
+
+@media only screen and (max-width: 768px) {
+  .cate-big-detail {
+    padding: 0rem 0.5rem 2rem 0.5rem;
+  }
+  .cate-big {
+    padding: 0 1.5rem;
+    gap: 1rem;
+    justify-content: space-evenly;
+  }
+  .cate-big2 {
+    padding: 2rem 0;
+  }
+}
+/*----------------대카테고리 영역 끝-----*/

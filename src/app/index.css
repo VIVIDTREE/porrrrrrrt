@@ -1,0 +1,26 @@
+.main-pc,
+.main-pc * {
+  box-sizing: border-box;
+}
+.main-pc {
+  height: 100%;
+  position: relative;
+  margin: 0 -1rem;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
+
+footer {
+}
+
+@media only screen and (max-width: 768px) {
+  .main-pc {
+    margin: 0 -0.5rem;
+  }
+}

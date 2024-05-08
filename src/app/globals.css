@@ -1,0 +1,161 @@
+/* font */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons+Outlined");
+@import url("https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Sarina&display=swap");
+
+/*Icons*/
+
+.font {
+  font-family: "Pretendard";
+}
+.fontLogo {
+  font-family: "Sarina";
+}
+.fontNum {
+  font-family: "Baskervville";
+}
+.pre3-5rem {
+  font-size: 3.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.07rem;
+}
+.pre1-5rem {
+  font-size: 1.3rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.03rem;
+}
+.pre1-5remSlim {
+  font-size: 1.3rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  letter-spacing: -0.03rem;
+}
+.pre1-5remNoMo {
+  font-size: 1.3rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.03rem;
+}
+.pre1-5remB {
+  font-size: 1.3rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.03rem;
+}
+.pre1rem {
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  letter-spacing: -0.03rem;
+}
+.pre0-8rem {
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  letter-spacing: -0.01625rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .pre1rem {
+    font-size: 0.8125rem;
+    letter-spacing: -0.01625rem;
+  }
+  .pre1-5rem,
+  .pre1-5remSlim {
+    font-size: 1rem;
+    letter-spacing: -0.02rem;
+  }
+  .pre3-5rem {
+    font-size: 2.5rem;
+  }
+  .pre0-8rem {
+    font-size: 0.75rem;
+    letter-spacing: -0.015rem;
+  }
+}
+
+.logo-text {
+  font-family: Sarina;
+  font-size: clamp(7rem, 25vw, 25rem);
+}
+@media only screen and (max-width: 768px) {
+  .logo-text {
+    font-size: 6.25rem;
+  }
+}
+
+.cate-big-font {
+  font-family: "Baskervville";
+  font-size: 4rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 4rem; /* 100% */
+  letter-spacing: -0.125rem;
+}
+@media only screen and (max-width: 768px) {
+  .cate-big-font {
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+  }
+}
+.font-color {
+  color: #000;
+}
+.font-sub-color {
+  color: #999;
+}
+
+/* Effects */
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+.layout {
+  padding: 0 1rem;
+  box-sizing: border-box;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* tag */
+
+section {
+  position: relative;
+  padding: 0 1rem 5rem 1rem;
+}
+footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+@media only screen and (max-width: 768px) {
+  section {
+    padding: 0 0.5rem 4rem 0.5rem;
+  }
+  .layout {
+    padding: 0 0.5rem;
+  }
+}
+
+/* Colors */
+
+.bg-color {
+  background-color: #fff !important;
+}

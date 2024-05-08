@@ -1,0 +1,139 @@
+.Related-page-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-top: 4rem;
+  justify-content: center;
+}
+
+.Related-page {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.Related-page-title {
+  text-align: center;
+}
+
+.Related-slider-wrap {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -ms-scroll-snap-type: x mandatory;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0;
+}
+
+.Related-slider-inner {
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 100%;
+}
+
+.Related-slider {
+  position: relative;
+  cursor: pointer;
+
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.Related-item {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.Related-img {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  flex: 1 1;
+  padding-top: 119.78%;
+  position: relative;
+}
+
+.Related-img img {
+  position: absolute;
+  inset: 0px;
+  box-sizing: border-box;
+  padding: 0px;
+  border: none;
+  margin: auto;
+  display: block;
+  width: 0px;
+  height: 0px;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.Related-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  flex: 0 1;
+  color: inherit;
+  text-decoration: none;
+  width: 100%;
+}
+
+.Related-tag {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.tag-item {
+  border: 1px solid #000;
+  border-radius: 999px;
+  padding: 0.25rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-next-rel,
+.custom-prev-rel {
+  color: #fff;
+  position: absolute;
+  z-index: 10;
+  opacity: 1;
+  transition: opacity 0.3s ease-out;
+  cursor: pointer;
+  transform: translateY(1rem);
+}
+.custom-next-rel {
+  right: 2rem;
+}
+.custom-prev-rel {
+  left: 2rem;
+}
+.custom-prev-rel img,
+.custom-next-rel img {
+  width: 10vw;
+  height: 10vw;
+  max-width: 80px;
+  max-height: 80px;
+}
+.swiper-button-disabled {
+  opacity: 0;
+  visibility: hidden;
+}
+
+@media (max-width: 768px) {
+  .custom-next-rel {
+    right: 1rem;
+  }
+  .custom-prev-rel {
+    left: 1rem;
+  }
+}

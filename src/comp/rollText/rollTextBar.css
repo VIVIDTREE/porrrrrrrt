@@ -1,0 +1,9 @@
+/*----------------롤링 텍스트 영역-----*/
+.rolling-text { overflow: hidden; white-space: nowrap; position: relative; width: 100%;}
+.roll-text-warp { display: flex; width: 100%; justify-content: flex-start; align-items: center; flex-shrink: 0;}
+.roll-text { padding: 0 1rem; }
+.continuous-text { display: inline-flex;}
+
+@media (max-width: 768px) {
+}
+/*----------------롤링 텍스트 영역 끝-----*/
