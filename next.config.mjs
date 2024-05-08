@@ -4,5 +4,7 @@ const nextConfig = {
     domains: ["cdn.sanity.io"],
   },
 };
-
+module.exports = {
+  output: "export",
+};
 export default nextConfig;
