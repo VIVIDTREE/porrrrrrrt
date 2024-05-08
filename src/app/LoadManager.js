@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Loading from "./loading.css";
+import Loading from "./Loading";
 
 const LoadManager = ({ children }) => {
   const isLoading = useSelector((state) => state.isLoading);
