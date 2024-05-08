@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && sanity build",
     "start": "next start",
     "lint": "next lint",
     "sanity-dev": "sanity dev",
