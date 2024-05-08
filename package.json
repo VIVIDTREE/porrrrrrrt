@@ -4,12 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "concurrently \"npm run build:next\" \"npm run sanity-build\"",
+    "build": "next build && next export && sanity build",
     "start": "next start",
     "lint": "next lint",
     "sanity-dev": "sanity dev",
-    "sanity-build": "sanity build",
-    "build:next": "next build && next export"
+    "sanity-build": "sanity build"
   },
   "dependencies": {
     "@redux-devtools/extension": "^3.3.0",
