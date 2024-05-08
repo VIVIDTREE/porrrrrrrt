@@ -19,6 +19,7 @@ const IndexPage = () => {
       <div className='main-footer'>
         <Footer />
       </div>
+      {/* ddffdfd */}
     </main>
   );
 };
