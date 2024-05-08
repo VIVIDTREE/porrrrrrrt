@@ -100,11 +100,12 @@ function RelatedPage({ slug }) {
                 <div className='Related-item'>
                   <div className='Related-img'>
                     <Image
-                      src={content.image.asset.url}
+                      src={`${content.image.asset.url}?fm=webp&auto=format`}
                       alt={content.name}
                       width={460}
                       height={551}
                       loading='lazy'
+                      unoptimized={content.image.asset.url.endsWith(".webp")}
                     />
                   </div>
                   <div className='Related-text'>

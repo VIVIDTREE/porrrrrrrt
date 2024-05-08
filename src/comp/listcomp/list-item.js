@@ -58,11 +58,14 @@ function Listitem({ tag, sortType }) {
                     <div className='item-img-box'>
                       <div className='item-img'>
                         <Image
-                          src={content.image.asset.url}
+                          src={`${content.image.asset.url}?fm=webp&auto=format`}
                           alt={content.name}
                           width={460}
                           height={551}
                           loading='lazy'
+                          unoptimized={content.image.asset.url.endsWith(
+                            ".webp"
+                          )}
                         />
                       </div>
                     </div>

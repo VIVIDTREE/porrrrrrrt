@@ -59,11 +59,12 @@ function CirIMG() {
           className={`cir-slide ${currentIndex === index ? "active" : ""}`}
         >
           <Image
-            src={urlFor(image).url()}
+            src={`${urlFor(image).url()}?fm=webp&auto=format`}
             alt={image._key}
             width={460}
             height={551}
             priority
+            unoptimized={urlFor(image).url().endsWith(".webp")}
           />
         </div>
       ))}

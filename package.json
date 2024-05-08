@@ -15,6 +15,7 @@
     "@sanity/client": "^6.15.5",
     "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.34.0",
+    "@vercel/speed-insights": "^1.0.10",
     "next": "^14.2.3",
     "next-sanity": "^7.1.4",
     "react": "^18",

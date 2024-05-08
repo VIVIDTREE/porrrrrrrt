@@ -119,11 +119,12 @@ export default function MySwiperComponent({ activeCategory }) {
                   <div className='img-warp'>
                     <Image
                       className='cate-img'
-                      src={slide.image.asset.url}
+                      src={`${slide.image.asset.url}?fm=webp&auto=format`}
                       alt={slide.image.alt || "slide image"}
                       width={460}
                       height={551}
                       loading='lazy'
+                      unoptimized={slide.image.asset.url.endsWith(".webp")}
                     />
                   </div>
                   <div className='description'>

@@ -56,7 +56,7 @@ function DetailImg({ image, images, files }) {
         <div className='img-big-con'>
           {allImages[selectedImageIndex] && (
             <Image
-              src={allImages[selectedImageIndex].url}
+              src={`${allImages[selectedImageIndex].url}?fm=webp&auto=format`}
               alt={allImages[selectedImageIndex].alt}
               width={920}
               height={1102}
@@ -64,6 +64,7 @@ function DetailImg({ image, images, files }) {
               onLoadingComplete={() =>
                 setLoadedImagesCount((count) => count + 1)
               }
+              unoptimized={allImages[selectedImageIndex].url.endsWith(".webp")}
             />
           )}
         </div>
@@ -103,13 +104,14 @@ function DetailImg({ image, images, files }) {
                 onClick={() => handleImageSelect(index)}
               >
                 <Image
-                  src={img.url}
+                  src={`${img.url}?fm=webp&auto=format`}
                   alt={img.alt}
                   width={460}
                   height={551}
                   onLoadingComplete={() =>
                     setLoadedImagesCount((count) => count + 1)
                   }
+                  unoptimized={img.url.endsWith(".webp")}
                 />
               </div>
             </SwiperSlide>
