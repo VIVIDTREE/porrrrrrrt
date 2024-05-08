@@ -2,18 +2,34 @@ import React, { useState, useEffect, useRef } from "react";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
+import { useDispatch } from "react-redux";
+import {
+  setLoadingAction,
+  setLoadedAction,
+  dataLoadedAction,
+} from "../../app/LoadManagerWithRedux";
 
 import "./detail-img.css";
 
 function DetailImg({ image, images, files }) {
+  const dispatch = useDispatch();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [containerHeight, setContainerHeight] = useState(0);
+  const [loadedImagesCount, setLoadedImagesCount] = useState(0);
+  const totalImages = [...files, image, ...images].length;
 
   // 이미지와 파일을 합친 전체 이미지 배열 생성
   const allImages = [...files, image, ...images].map((img) => ({
     url: img.asset.url, // url을 직접 매핑
     alt: img.alt || "Detail image", // alt 텍스트가 없는 경우 기본값 사용
   }));
+
+  useEffect(() => {
+    // 모든 이미지가 로드되었는지 확인
+    if (loadedImagesCount === totalImages) {
+      dispatch(setLoadedAction());
+    }
+  }, [loadedImagesCount, totalImages, dispatch]);
 
   useEffect(() => {
     const updateContainerHeight = () => {
@@ -34,9 +50,6 @@ function DetailImg({ image, images, files }) {
     setSelectedImageIndex(index);
   };
 
-  // 선택된 이미지 URL 직접 계산
-  const selectedImage = allImages[selectedImageIndex]?.asset?.url;
-
   return (
     <div className='img-grid-warp' style={{ height: `${containerHeight}px` }}>
       <div className='img-big-warp'>
@@ -48,6 +61,9 @@ function DetailImg({ image, images, files }) {
               width={920}
               height={1102}
               priority
+              onLoadingComplete={() =>
+                setLoadedImagesCount((count) => count + 1)
+              }
             />
           )}
         </div>
@@ -86,7 +102,15 @@ function DetailImg({ image, images, files }) {
                 }`}
                 onClick={() => handleImageSelect(index)}
               >
-                <Image src={img.url} alt={img.alt} width={460} height={551} />
+                <Image
+                  src={img.url}
+                  alt={img.alt}
+                  width={460}
+                  height={551}
+                  onLoadingComplete={() =>
+                    setLoadedImagesCount((count) => count + 1)
+                  }
+                />
               </div>
             </SwiperSlide>
           ))}
