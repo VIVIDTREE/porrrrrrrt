@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "sanity-dev": "sanity dev"
+    "sanity-dev": "sanity dev",
+    "sanity-build": "sanity build"
   },
   "dependencies": {
     "@redux-devtools/extension": "^3.3.0",
@@ -29,6 +30,8 @@
   "devDependencies": {
     "@babel/core": "^7.24.0",
     "@babel/preset-env": "^7.24.0",
+    "@stackbit/cms-sanity": "^0.2.50",
+    "@stackbit/types": "^0.11.14",
     "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.1.3"
