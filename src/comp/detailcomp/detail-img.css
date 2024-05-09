@@ -21,8 +21,9 @@
   border: 0px;
   margin: 0px;
   padding: 0px;
-  position: absolute;
+  position: relative;
   inset: 0px;
+  padding-top: 119.78%;
 }
 
 .img-big-con img {

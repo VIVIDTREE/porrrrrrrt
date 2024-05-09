@@ -121,8 +121,8 @@
 .custom-next-rel img {
   width: 10vw;
   height: 10vw;
-  max-width: 80px;
-  max-height: 80px;
+  max-width: 50px;
+  max-height: 50px;
 }
 .swiper-button-disabled {
   opacity: 0;

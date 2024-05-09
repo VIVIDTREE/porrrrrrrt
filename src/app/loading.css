@@ -1,6 +1,8 @@
 .loading-warp {
   width: 100vw;
   height: 100vh;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
   background-color: #000;
   z-index: 9999999;
   overflow: hidden;
@@ -39,4 +41,8 @@
   opacity: 0.05;
   transition: opacity 0.2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
   visibility: visible;
+}
+
+@supports (-webkit-touch-callout: none) {
+  height: -webkit-fill-available;
 }

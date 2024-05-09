@@ -126,7 +126,7 @@ function RelatedPage({ slug }) {
       </Swiper>
       <div className='custom-next-rel'>
         <Image
-          src='/src/icon/right_arr.png'
+          src='/src/icon/right_arr_10px.png'
           width={512}
           height={512}
           alt='arr-right'
@@ -134,7 +134,7 @@ function RelatedPage({ slug }) {
       </div>
       <div className='custom-prev-rel'>
         <Image
-          src='/src/icon/left_arr2.png'
+          src='/src/icon/left_arr2_10px.png'
           width={512}
           height={512}
           alt='arr-left'

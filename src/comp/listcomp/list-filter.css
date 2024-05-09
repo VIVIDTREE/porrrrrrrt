@@ -22,6 +22,11 @@
   justify-content: center;
   background-color: transparent;
   cursor: pointer;
+  text-decoration: none;
+}
+.btn-text,
+.btn-plus {
+  color: inherit;
 }
 
 .list-btn:hover {
