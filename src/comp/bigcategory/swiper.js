@@ -83,8 +83,8 @@ export default function MySwiperComponent({ activeCategory }) {
         slidesPerView={"auto"}
         freeMode={true}
         navigation={{
-          nextEl: ".custom-next",
-          prevEl: ".custom-prev",
+          nextEl: ".custom-next-main",
+          prevEl: ".custom-prev-main",
         }}
         breakpoints={{
           0: { slidesPerView: 1, spaceBetween: 8 },
@@ -151,17 +151,17 @@ export default function MySwiperComponent({ activeCategory }) {
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className='custom-next'>
+      <div className='custom-next-main'>
         <Image
-          src='/src/icon/right_arr.png'
+          src='/src/icon/right_arr_10px.png'
           width={512}
           height={512}
           alt='arr-right'
         />
       </div>
-      <div className='custom-prev'>
+      <div className='custom-prev-main'>
         <Image
-          src='/src/icon/left_arr2.png'
+          src='/src/icon/left_arr2_10px.png'
           width={512}
           height={512}
           alt='arr-left'

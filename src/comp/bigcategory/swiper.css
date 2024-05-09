@@ -90,8 +90,8 @@
   position: relative;
 }
 
-.custom-next,
-.custom-prev {
+.custom-next-main,
+.custom-prev-main {
   color: #fff;
   position: absolute;
   top: 37%;
@@ -101,18 +101,18 @@
   cursor: pointer;
   transform: translateY(-37%);
 }
-.custom-next {
+.custom-next-main {
   right: 2rem;
 }
-.custom-prev {
+.custom-prev-main {
   left: 2rem;
 }
-.custom-prev img,
-.custom-next img {
+.custom-prev-main img,
+.custom-next-main img {
   width: 10vw;
   height: 10vw;
-  max-width: 80px;
-  max-height: 80px;
+  max-width: 50px;
+  max-height: 50px;
 }
 .swiper-view-wrap {
   width: 100%;
@@ -159,10 +159,10 @@
   .tag {
     gap: 0.25rem;
   }
-  .custom-next {
+  .custom-next-main {
     right: 1rem;
   }
-  .custom-prev {
+  .custom-prev-main {
     left: 1rem;
   }
 }
