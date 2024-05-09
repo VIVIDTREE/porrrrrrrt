@@ -46,6 +46,7 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
             width={2560}
             height={900}
             layout='responsive'
+            priority
             onLoad={handleLoad}
           />
         </div>
@@ -53,9 +54,10 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
       <div className='main-warp'>
         <Image
           className='main-img-warp'
-          src={urlFor(image)}
+          src={`${urlFor(image)}?fm=webp&auto=format`}
           alt={name}
           layout='fill'
+          priority
           onLoad={handleLoad}
           style={{ opacity: isImageLoaded ? 1 : 0, transition: "opacity 0.3s" }}
         />

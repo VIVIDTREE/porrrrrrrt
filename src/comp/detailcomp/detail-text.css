@@ -12,6 +12,7 @@
 
 .detail-des {
   padding-top: 1rem;
+  word-break: keep-all;
 }
 
 .detail-link {

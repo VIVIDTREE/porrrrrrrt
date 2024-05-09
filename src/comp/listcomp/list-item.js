@@ -62,10 +62,6 @@ function Listitem({ tag, sortType }) {
                           alt={content.name}
                           width={460}
                           height={551}
-                          loading='lazy'
-                          unoptimized={content.image.asset.url.endsWith(
-                            ".webp"
-                          )}
                         />
                       </div>
                     </div>

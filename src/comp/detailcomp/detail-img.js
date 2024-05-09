@@ -16,23 +16,42 @@ function DetailImg({ image, images, files }) {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [containerHeight, setContainerHeight] = useState(0);
   const [loadedImagesCount, setLoadedImagesCount] = useState(0);
-  const totalImages = [...files, image, ...images].length;
+  const [swiper, setSwiper] = useState(null);
+  const [isBlurEffect, setIsBlurEffect] = useState({
+    first: false,
+    last: false,
+  });
+  const swiperRef = useRef(null);
 
-  // 이미지와 파일을 합친 전체 이미지 배열 생성
   const allImages = [...files, image, ...images].map((img) => ({
-    url: img.asset.url, // url을 직접 매핑
-    alt: img.alt || "Detail image", // alt 텍스트가 없는 경우 기본값 사용
+    url: img.asset.url,
+    alt: img.alt || "Detail image",
   }));
 
   useEffect(() => {
-    // 모든 이미지가 로드되었는지 확인
-    if (loadedImagesCount === totalImages) {
+    if (loadedImagesCount === allImages.length) {
       dispatch(setLoadedAction());
     }
-  }, [loadedImagesCount, totalImages, dispatch]);
+  }, [loadedImagesCount, allImages.length, dispatch]);
+
   useEffect(() => {
-    setLoadedImagesCount(0); // 이미지 배열이 바뀔 때 카운터를 리셋
-  }, [files, image, images]);
+    setLoadedImagesCount(0);
+  }, [allImages]);
+
+  useEffect(() => {
+    if (swiper) {
+      setIsBlurEffect({
+        first: swiper.activeIndex > 0,
+        last:
+          swiper.activeIndex + swiper.params.slidesPerView <
+          swiper.slides.length,
+      });
+    }
+  }, [swiper]);
+
+  const handleImageLoad = () => {
+    setLoadedImagesCount((count) => count + 1);
+  };
 
   useEffect(() => {
     const updateContainerHeight = () => {
@@ -51,11 +70,52 @@ function DetailImg({ image, images, files }) {
 
   const handleImageSelect = (index) => {
     setSelectedImageIndex(index);
+    updateBlurEffects(swiperRef.current.swiper);
   };
+
+  const updateBlurEffects = () => {
+    const swiper = swiperRef.current;
+    if (!swiper) return; // swiper 인스턴스 확인
+
+    // 현재 활성화된 슬라이드와 뷰포트 내 마지막 슬라이드 계산
+    const firstVisibleSlide = swiper.slides[swiper.activeIndex];
+    const lastVisibleSlide =
+      swiper.slides[
+        Math.min(
+          swiper.activeIndex + swiper.params.slidesPerView - 1,
+          swiper.slides.length - 1
+        )
+      ];
+
+    // 모든 슬라이드에서 블러 효과 제거
+    swiper.slides.forEach((slide) => {
+      const miniImg = slide.querySelector(".img-mini");
+      if (miniImg) {
+        miniImg.classList.remove("blur-effect");
+      }
+    });
+
+    // 조건에 따라 첫 번째와 마지막 보이는 슬라이드에 블러 효과 추가
+    if (swiper.activeIndex > 0 && firstVisibleSlide) {
+      // 첫 번째 슬라이드가 완전히 보이지 않을 때
+      firstVisibleSlide.querySelector(".img-mini").classList.add("blur-effect");
+    }
+    if (
+      swiper.activeIndex + swiper.params.slidesPerView < swiper.slides.length &&
+      lastVisibleSlide
+    ) {
+      // 마지막 슬라이드가 완전히 보이지 않을 때
+      lastVisibleSlide.querySelector(".img-mini").classList.add("blur-effect");
+    }
+  };
+
+  // Swiper 설정에 onSwiper와 onSlideChange 콜백에서 이 함수를 호출합니다.
 
   return (
     <div className='img-grid-warp' style={{ height: `${containerHeight}px` }}>
-      <div className='img-big-warp'>
+      <div
+        className={`img-big-warp ${isBlurEffect.first ? "blur-effect" : ""}`}
+      >
         <div className='img-big-con'>
           {allImages[selectedImageIndex] && (
             <Image
@@ -63,18 +123,17 @@ function DetailImg({ image, images, files }) {
               alt={allImages[selectedImageIndex].alt}
               width={920}
               height={1102}
-              priority
-              onLoadingComplete={() =>
-                setLoadedImagesCount((count) => count + 1)
-              }
-              onError={() => setLoadedImagesCount((count) => count + 1)}
-              unoptimized={allImages[selectedImageIndex].url.endsWith(".webp")}
+              onLoadingComplete={handleImageLoad}
+              onError={handleImageLoad}
             />
           )}
         </div>
       </div>
-      <div className='img-grid-list'>
+      <div
+        className={`img-grid-list ${isBlurEffect.last ? "blur-effect" : ""}`}
+      >
         <Swiper
+          onSwiper={setSwiper}
           className='img-slider-warp'
           modules={[Navigation]}
           slidesPerView={4}
@@ -97,10 +156,14 @@ function DetailImg({ image, images, files }) {
             nextEl: ".custom-next",
             prevEl: ".custom-prev",
           }}
-          onSlideChange={({ activeIndex }) => handleImageSelect(activeIndex)}
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+            updateBlurEffects();
+          }}
+          onSlideChange={() => updateBlurEffects()}
         >
           {allImages.map((img, index) => (
-            <SwiperSlide className='img-slide' key={index}>
+            <SwiperSlide key={index} className='img-slide'>
               <div
                 className={`img-mini ${
                   selectedImageIndex === index ? "selected" : ""
@@ -116,7 +179,6 @@ function DetailImg({ image, images, files }) {
                     setLoadedImagesCount((count) => count + 1)
                   }
                   onError={() => setLoadedImagesCount((count) => count + 1)}
-                  unoptimized={img.url.endsWith(".webp")}
                 />
               </div>
             </SwiperSlide>
@@ -124,7 +186,7 @@ function DetailImg({ image, images, files }) {
         </Swiper>
         <div className='custom-next'>
           <Image
-            src='/src/icon/right_arr.png'
+            src='/src/icon/right_arr_10px.png'
             width={512}
             height={512}
             alt='arr-right'
@@ -132,7 +194,7 @@ function DetailImg({ image, images, files }) {
         </div>
         <div className='custom-prev'>
           <Image
-            src='/src/icon/left_arr2.png'
+            src='/src/icon/left_arr2_10px.png'
             width={512}
             height={512}
             alt='arr-left'

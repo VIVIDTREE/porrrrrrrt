@@ -14,7 +14,7 @@ export default function ListPage(props) {
       <ListTitle tag={props.params.tag} />
       <div className='list-page-wrap'>
         <div className='left-menu left-menu-listpage'>
-          <SideCategory />
+          <SideCategory selectedTag={props.params.tag} />
         </div>
         <ListFliter tag={props.params.tag} onSortChange={setSortType} />
         <Listitem tag={props.params.tag} sortType={sortType} />

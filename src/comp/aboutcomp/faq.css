@@ -6,6 +6,7 @@
   display: grid;
   grid-column-gap: 1rem;
   grid-template-columns: 2fr 2fr;
+  word-break: keep-all;
 }
 .faq-title {
   grid-column: 1;
@@ -36,11 +37,5 @@
   }
   .faq-sub {
     grid-column: 1;
-  }
-  .faq-detail {
-    max-width: 94%;
-  }
-  .faq-sub-title {
-    max-width: 84%;
   }
 }

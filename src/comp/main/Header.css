@@ -93,10 +93,10 @@
 
 @media only screen and (max-width: 768px) {
   .header-warp {
-    height: 3rem;
+    height: 4rem;
   }
   .header {
-    height: 3rem;
+    height: 4rem;
   }
   .logo-img {
     width: 6rem;

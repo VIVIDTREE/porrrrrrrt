@@ -64,7 +64,6 @@ function CirIMG() {
             width={460}
             height={551}
             priority
-            unoptimized={urlFor(image).url().endsWith(".webp")}
           />
         </div>
       ))}

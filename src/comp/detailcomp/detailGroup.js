@@ -13,6 +13,8 @@ import {
 
 function DetailGroup({ slug }) {
   const [contentDetail, setContentDetail] = useState(null);
+  const [allDataLoaded, setAllDataLoaded] = useState(false);
+  const [allImagesLoaded, setAllImagesLoaded] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -53,14 +55,20 @@ function DetailGroup({ slug }) {
       .fetch(query, { slug })
       .then((data) => {
         setContentDetail(data);
+        setAllDataLoaded(true); // 데이터 로드 완료 상태 업데이트
         dispatch(setLoadedAction()); // 데이터 로딩 완료 액션 디스패치
-        dispatch(dataLoadedAction()); // 데이터 로드 완료 액션 디스패치
       })
       .catch((error) => {
         console.error("Error fetching content detail:", error);
         dispatch(setLoadedAction()); // 데이터 로딩 실패 시에도 로딩 완료 액션 디스패치
       });
   }, [dispatch, slug]);
+
+  useEffect(() => {
+    if (allDataLoaded && allImagesLoaded) {
+      dispatch(dataLoadedAction()); // 모든 데이터 및 이미지 로드 완료시
+    }
+  }, [allDataLoaded, allImagesLoaded, dispatch]);
 
   return (
     <div className='detail-list-warp'>
@@ -71,6 +79,7 @@ function DetailGroup({ slug }) {
               image={contentDetail.image}
               images={contentDetail.images || []}
               files={contentDetail.files || []}
+              setAllImagesLoaded={setAllImagesLoaded}
             />
             <DetailText contentDetail={contentDetail} />
           </div>

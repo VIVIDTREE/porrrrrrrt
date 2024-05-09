@@ -5,6 +5,7 @@
   grid-column-gap: 1rem;
   padding-top: 1rem;
   padding-bottom: 4rem;
+  word-break: keep-all;
 }
 
 .about-main-text {
@@ -39,11 +40,5 @@
   .about-detail-text {
     display: flex;
     flex-direction: column;
-  }
-  .about-detail-text p {
-    max-width: 94%;
-  }
-  .about-main-text {
-    max-width: 84%;
   }
 }

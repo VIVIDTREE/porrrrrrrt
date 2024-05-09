@@ -123,8 +123,6 @@ export default function MySwiperComponent({ activeCategory }) {
                       alt={slide.image.alt || "slide image"}
                       width={460}
                       height={551}
-                      loading='lazy'
-                      unoptimized={slide.image.asset.url.endsWith(".webp")}
                     />
                   </div>
                   <div className='description'>

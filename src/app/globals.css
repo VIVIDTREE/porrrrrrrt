@@ -159,3 +159,12 @@ footer {
 .bg-color {
   background-color: #fff !important;
 }
+
+.img-loaded {
+  transition: opacity 0.5s ease-out;
+  opacity: 1;
+}
+
+.img-loading {
+  opacity: 0;
+}

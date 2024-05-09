@@ -64,22 +64,28 @@ const MenuContent = ({ toggleMenu }) => {
 
   return (
     <>
-      <div className='header-warp'>
+      <div className='header-warp back'>
         <div className='header pre1-5rem'>
           <div className='menu' onClick={toggleMenu}>
             Menu
           </div>
-          <div className='logo'>
-            <div className='logo-img'>
-              <Image
-                src='/src/logo.png'
-                alt='로고'
-                width={2560}
-                height={900}
-                layout='responsive'
-              />
+          <Link
+            href='/'
+            as={`/`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <div className='logo'>
+              <div className='logo-img'>
+                <Image
+                  src='/src/logo.png'
+                  alt='로고'
+                  width={2560}
+                  height={900}
+                  layout='responsive'
+                />
+              </div>
             </div>
-          </div>
+          </Link>
           <div className='contact-btn'>
             <div className='contact' onClick={toggleMenu}>
               Close

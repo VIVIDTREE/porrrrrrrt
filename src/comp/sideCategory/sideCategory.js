@@ -3,7 +3,8 @@ import client from "../../../sanity.js";
 import "./sideCategory.css";
 import Link from "next/link";
 
-function SideCategory() {
+function SideCategory({ selectedTag }) {
+  // selectedTag를 props로 받음
   const [menuItems, setMenuItems] = useState([]);
   const [menuLists, setMenuLists] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
@@ -11,12 +12,9 @@ function SideCategory() {
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
-        // 태그별 카운트 조회
         const tagQuery = `*[_type == "tag"]{ name, "count": count(*[_type == "portfolio" && references(^._id)]) }`;
         const tags = await client.fetch(tagQuery);
         const sortedTags = tags.sort((a, b) => b.count - a.count);
-
-        // 전체 컨텐츠 갯수 조회
         const totalQuery = 'count(*[_type == "portfolio"])';
         const totalCount = await client.fetch(totalQuery);
 
@@ -31,30 +29,19 @@ function SideCategory() {
   }, []);
 
   useEffect(() => {
-    // "All" 메뉴 추가
     const allMenu = { name: "All", count: totalCount };
     const updatedMenuItems = [allMenu, ...menuItems];
-
-    // 첫 번째와 마지막 단락에 분배할 메뉴 아이템의 갯수 (All 포함)
     const firstAndLastLimit = 3;
-    // 첫 번째 단락에 분배 (All 포함)
     const firstSection = updatedMenuItems.slice(0, firstAndLastLimit);
-
-    // 마지막 단락에 분배할 시작 인덱스 계산
     const lastSectionStartIndex = Math.max(
       updatedMenuItems.length - firstAndLastLimit,
       firstAndLastLimit
     );
-    // 마지막 단락에 분배
     const lastSection = updatedMenuItems.slice(lastSectionStartIndex);
-
-    // 중간 단락에 분배
     const middleSection = updatedMenuItems.slice(
       firstAndLastLimit,
       lastSectionStartIndex
     );
-
-    // 최종 메뉴 리스트 구성
     const newMenuLists = [firstSection, middleSection, lastSection];
 
     setMenuLists(newMenuLists);
@@ -77,6 +64,11 @@ function SideCategory() {
                 </Link>
                 <div className='sideCategory-num pre0-8rem fontNum'>
                   {formatCount(item.count)}
+                </div>
+                <div className='selected-img'>
+                  {selectedTag === item.name && (
+                    <img src='/src/icon/arr_sele14px.png' alt='Selected' />
+                  )}
                 </div>
               </div>
             ))}

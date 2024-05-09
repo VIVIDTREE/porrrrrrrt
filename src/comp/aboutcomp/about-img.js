@@ -56,7 +56,6 @@ function AboutImg() {
             alt={aboutData.name}
             width={1024}
             height={1024}
-            loading='lazy'
           />
         </div>
       )}

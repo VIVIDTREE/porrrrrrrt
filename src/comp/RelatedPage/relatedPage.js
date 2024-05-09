@@ -41,7 +41,7 @@ function RelatedPage({ slug }) {
                 url
               }
             }
-          }[0...10]`;
+          }[0...8]`;
 
           client
             .fetch(relatedContentQuery, { tagRefs: data.tagRefs, slug: slug })
@@ -104,8 +104,6 @@ function RelatedPage({ slug }) {
                       alt={content.name}
                       width={460}
                       height={551}
-                      loading='lazy'
-                      unoptimized={content.image.asset.url.endsWith(".webp")}
                     />
                   </div>
                   <div className='Related-text'>
