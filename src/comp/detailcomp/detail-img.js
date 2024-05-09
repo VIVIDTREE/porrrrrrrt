@@ -119,7 +119,7 @@ function DetailImg({ image, images, files }) {
         <div className='img-big-con'>
           {allImages[selectedImageIndex] && (
             <Image
-              src={`${allImages[selectedImageIndex].url}?fm=webp&auto=format`}
+              src={allImages[selectedImageIndex].url}
               alt={allImages[selectedImageIndex].alt}
               width={920}
               height={1102}
@@ -171,7 +171,7 @@ function DetailImg({ image, images, files }) {
                 onClick={() => handleImageSelect(index)}
               >
                 <Image
-                  src={`${img.url}?fm=webp&auto=format`}
+                  src={img.url}
                   alt={img.alt}
                   width={460}
                   height={551}
