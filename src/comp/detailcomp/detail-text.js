@@ -53,13 +53,6 @@ function DetailText({ contentDetail }) {
             거치는 과정에서 초기 작업 의도와는 조금 다른 레이아웃이나 구성 일 수
             있습니다.
           </div>
-          <div className='detail-notice'>
-            2. 모션 콘텐츠의 경우 웹페이지 최적화를 위해 최대 압축과 BGM을 제거
-            후 최소한의 프레임으로 미리 보기를 업로드하였습니다. 때문에 원본
-            영상과는 연출, 프레임, BGM 등이 다를 수 있으니 미리 보기는
-            참고용으로 확인하시고 원본 영상 링크를 통해 확인해 주시면
-            감사하겠습니다.
-          </div>
         </div>
         <div className='detail-tool'>
           <div className='tool-title pre1rem'>Tools used</div>

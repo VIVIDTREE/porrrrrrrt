@@ -2,14 +2,17 @@
   position: absolute;
   width: 100%;
   top: 0;
-  height: 100vh;
   transition: height 0.3s ease;
 }
 
 .main-warp {
-  height: 100vh;
+  width: 100%;
+  position: relative;
 }
-
-main-img-warp {
-  height: 100vh;
+.main-img-warp {
+  flex-shrink: 0;
+  width: 100%;
+  position: relative;
+  object-fit: cover;
+  object-position: 50% 50%;
 }
