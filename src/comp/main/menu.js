@@ -62,6 +62,22 @@ const MenuContent = ({ toggleMenu }) => {
 
   const formatCount = (count) => count.toString().padStart(2, "0");
 
+  useEffect(() => {
+    const updateHeight = () => {
+      const viewportHeight = window.innerHeight + "px";
+      document.body.style.height = viewportHeight; // body에 직접 높이 적용
+    };
+
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    document.addEventListener("visibilitychange", updateHeight);
+
+    return () => {
+      window.removeEventListener("resize", updateHeight);
+      document.removeEventListener("visibilitychange", updateHeight);
+    };
+  }, []);
+
   return (
     <>
       <div className='header-warp back'>
