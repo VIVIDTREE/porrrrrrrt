@@ -72,13 +72,13 @@
 }
 .main-warp {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   position: relative;
 }
 .main-img-warp {
   flex-shrink: 0;
   width: 100%;
-  height: 100% !important;
+  height: 100%;
   position: relative;
   object-fit: cover;
   object-position: 50% 50%;

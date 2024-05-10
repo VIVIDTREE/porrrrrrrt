@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Header from "./HeaderContent";
 import MainBanner from "./MainBanner";
 import "./mainGroup.css";
@@ -12,7 +12,7 @@ const MainGroup = () => {
   const [headerOpacity, setHeaderOpacity] = useState(1);
   const [logoOpacity, setLogoOpacity] = useState(1);
   const [mainBannerData, setMainBannerData] = useState(null); // 상태 이름은 그대로 유지
-
+  const bannerRef = useRef(null);
   useEffect(() => {
     const adjustHeaderAndLogoVisibility = () => {
       const viewportWidth = window.innerWidth;
@@ -51,6 +51,24 @@ const MainGroup = () => {
   }, []);
 
   useEffect(() => {
+    const updateHeight = () => {
+      const viewportHeight = window.innerHeight + "px";
+      if (bannerRef.current) {
+        bannerRef.current.style.height = viewportHeight;
+      }
+    };
+
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    document.addEventListener("visibilitychange", updateHeight);
+
+    return () => {
+      window.removeEventListener("resize", updateHeight);
+      document.removeEventListener("visibilitychange", updateHeight);
+    };
+  }, []);
+
+  useEffect(() => {
     const loadData = async () => {
       const fetchedMainBannerData = await client.fetch(
         `*[_type == "mainBanner"][0]`
@@ -79,7 +97,7 @@ const MainGroup = () => {
   };
 
   return (
-    <section className='main-view pre1-5rem'>
+    <section className='main-view pre1-5rem' ref={bannerRef}>
       <Header isScrolled={isScrolled} scale={logoScale} opacity={logoOpacity} />
       <MainBanner
         scale={logoScale}
