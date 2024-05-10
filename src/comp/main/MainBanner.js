@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import Image from "next/image";
 import client from "../../../sanity.js";
 import imageUrlBuilder from "@sanity/image-url";
@@ -17,18 +17,8 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const dispatch = useDispatch();
   const bannerRef = useRef(null);
-  useEffect(() => {
-    if (image && !isImageLoaded) {
-      dispatch({ type: "SET_LOADING" });
-    }
-  }, [image, isImageLoaded, dispatch]);
 
-  const handleLoad = () => {
-    setIsImageLoaded(true); // 이미지 로드 상태 업데이트
-    dispatch({ type: "SET_LOADED" }); // 로딩 완료 액션 디스패치
-    dispatch({ type: "DATA_LOADED" }); // 데이터 로드 완료 액션 디스패치
-  };
-  useEffect(() => {
+  useLayoutEffect(() => {
     const updateHeight = () => {
       const viewportHeight = window.innerHeight + "px";
       if (bannerRef.current) {
@@ -36,21 +26,28 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
       }
     };
 
-    // 페이지 로드 시 한 번 실행
-    window.onload = () => {
-      updateHeight();
-    };
-
-    // 화면 크기 변경이나 탭의 가시성 변경 시 높이 업데이트
+    updateHeight();
     window.addEventListener("resize", updateHeight);
     document.addEventListener("visibilitychange", updateHeight);
 
-    // 정리 함수
     return () => {
       window.removeEventListener("resize", updateHeight);
       document.removeEventListener("visibilitychange", updateHeight);
     };
   }, []);
+
+  useEffect(() => {
+    if (image && !isImageLoaded) {
+      dispatch({ type: "SET_LOADING" });
+    }
+  }, [image, isImageLoaded, dispatch]);
+
+  const handleLoad = () => {
+    setIsImageLoaded(true);
+    dispatch({ type: "SET_LOADED" });
+    dispatch({ type: "DATA_LOADED" });
+  };
+
   if (!mainBannerData) {
     return null;
   }
