@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import client from "../../../sanity.js";
 import imageUrlBuilder from "@sanity/image-url";
@@ -16,7 +16,6 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
   const { name, image } = mainBannerData || {};
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const dispatch = useDispatch();
-  const bannerRef = useRef(null);
 
   useEffect(() => {
     if (image && !isImageLoaded) {
@@ -30,30 +29,12 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
     dispatch({ type: "DATA_LOADED" }); // 데이터 로드 완료 액션 디스패치
   };
 
-  useEffect(() => {
-    const updateHeight = () => {
-      const viewportHeight = window.innerHeight + "px";
-      if (bannerRef.current) {
-        bannerRef.current.style.height = viewportHeight;
-      }
-    };
-
-    updateHeight();
-    window.addEventListener("resize", updateHeight);
-    document.addEventListener("visibilitychange", updateHeight);
-
-    return () => {
-      window.removeEventListener("resize", updateHeight);
-      document.removeEventListener("visibilitychange", updateHeight);
-    };
-  }, []);
-
   if (!mainBannerData) {
     return null;
   }
 
   return (
-    <div ref={bannerRef} className='main-banner'>
+    <div className='main-banner'>
       <div className='logo2'>
         <div
           className='logo-img2'
@@ -70,7 +51,7 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
           />
         </div>
       </div>
-      <div ref={bannerRef} className='main-warp'>
+      <div className='main-warp'>
         <Image
           className='main-img-warp'
           src={`${urlFor(image)}?fm=webp&auto=format`}
