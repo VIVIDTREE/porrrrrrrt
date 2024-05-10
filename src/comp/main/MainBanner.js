@@ -36,10 +36,16 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
       }
     };
 
-    updateHeight();
+    // 페이지 로드 시 한 번 실행
+    window.onload = () => {
+      updateHeight();
+    };
+
+    // 화면 크기 변경이나 탭의 가시성 변경 시 높이 업데이트
     window.addEventListener("resize", updateHeight);
     document.addEventListener("visibilitychange", updateHeight);
 
+    // 정리 함수
     return () => {
       window.removeEventListener("resize", updateHeight);
       document.removeEventListener("visibilitychange", updateHeight);
