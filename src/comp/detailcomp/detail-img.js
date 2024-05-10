@@ -16,42 +16,39 @@ function DetailImg({ image, images, files }) {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [containerHeight, setContainerHeight] = useState(0);
   const [loadedImagesCount, setLoadedImagesCount] = useState(0);
-  const [swiper, setSwiper] = useState(null);
-  const [isBlurEffect, setIsBlurEffect] = useState({
-    first: false,
-    last: false,
-  });
   const swiperRef = useRef(null);
 
-  const allImages = [...files, image, ...images].map((img) => ({
-    url: img.asset.url,
-    alt: img.alt || "Detail image",
-  }));
+  const allMedia = [
+    ...files.map((file) => ({
+      ...file,
+      mimeType: file.asset.mimeType,
+      url: file.asset.url,
+      alt: file.alt || "Video Preview",
+      isVideo: file.asset.mimeType.startsWith("video/"),
+    })),
+    {
+      url: image.asset.url,
+      alt: image.alt,
+      mimeType: image.asset.mimeType || "image/jpeg",
+      isVideo: (image.asset.mimeType || "image/jpeg").startsWith("video/"),
+    },
+    ...images.map((img) => ({
+      url: img.asset.url,
+      alt: img.alt,
+      mimeType: img.asset.mimeType || "image/jpeg",
+      isVideo: (img.asset.mimeType || "image/jpeg").startsWith("video/"),
+    })),
+  ];
 
   useEffect(() => {
-    if (loadedImagesCount === allImages.length) {
+    if (loadedImagesCount === allMedia.length) {
       dispatch(setLoadedAction());
     }
-  }, [loadedImagesCount, allImages.length, dispatch]);
+  }, [loadedImagesCount, allMedia.length, dispatch]);
 
   useEffect(() => {
     setLoadedImagesCount(0);
-  }, [allImages]);
-
-  useEffect(() => {
-    if (swiper) {
-      setIsBlurEffect({
-        first: swiper.activeIndex > 0,
-        last:
-          swiper.activeIndex + swiper.params.slidesPerView <
-          swiper.slides.length,
-      });
-    }
-  }, [swiper]);
-
-  const handleImageLoad = () => {
-    setLoadedImagesCount((count) => count + 1);
-  };
+  }, [allMedia]);
 
   useEffect(() => {
     const updateContainerHeight = () => {
@@ -70,70 +67,85 @@ function DetailImg({ image, images, files }) {
 
   const handleImageSelect = (index) => {
     setSelectedImageIndex(index);
-    updateBlurEffects(swiperRef.current.swiper);
+    updateBlurEffects(swiperRef.current);
   };
 
-  const updateBlurEffects = () => {
-    const swiper = swiperRef.current;
-    if (!swiper) return; // swiper 인스턴스 확인
+  const updateBlurEffects = (swiper) => {
+    if (!swiper) return;
 
-    // 현재 활성화된 슬라이드와 뷰포트 내 마지막 슬라이드 계산
-    const firstVisibleSlide = swiper.slides[swiper.activeIndex];
-    const lastVisibleSlide =
-      swiper.slides[
-        Math.min(
-          swiper.activeIndex + swiper.params.slidesPerView - 1,
-          swiper.slides.length - 1
-        )
-      ];
+    // 현재 네비게이션 버튼의 활성화 상태 확인
+    const isPrevActive = swiper.params.navigation && !swiper.isBeginning;
+    const isNextActive = swiper.params.navigation && !swiper.isEnd;
 
-    // 모든 슬라이드에서 블러 효과 제거
     swiper.slides.forEach((slide) => {
-      const miniImg = slide.querySelector(".img-mini");
-      if (miniImg) {
-        miniImg.classList.remove("blur-effect");
-      }
+      slide.querySelector(".img-mini").classList.remove("blur-effect");
     });
 
-    // 조건에 따라 첫 번째와 마지막 보이는 슬라이드에 블러 효과 추가
-    if (swiper.activeIndex > 0 && firstVisibleSlide) {
-      // 첫 번째 슬라이드가 완전히 보이지 않을 때
-      firstVisibleSlide.querySelector(".img-mini").classList.add("blur-effect");
+    // 각 조건에 맞게 블러 효과 적용
+    if (isPrevActive) {
+      swiper.slides[swiper.activeIndex]
+        .querySelector(".img-mini")
+        .classList.add("blur-effect");
     }
     if (
-      swiper.activeIndex + swiper.params.slidesPerView < swiper.slides.length &&
-      lastVisibleSlide
+      isNextActive &&
+      swiper.activeIndex + swiper.params.slidesPerView - 1 <
+        swiper.slides.length
     ) {
-      // 마지막 슬라이드가 완전히 보이지 않을 때
-      lastVisibleSlide.querySelector(".img-mini").classList.add("blur-effect");
+      swiper.slides[swiper.activeIndex + swiper.params.slidesPerView - 1]
+        .querySelector(".img-mini")
+        .classList.add("blur-effect");
     }
   };
 
-  // Swiper 설정에 onSwiper와 onSlideChange 콜백에서 이 함수를 호출합니다.
+  const renderMedia = (media, isThumbnail = false) => {
+    if (media.isVideo) {
+      return (
+        <video
+          width={isThumbnail ? 460 : 920}
+          height={isThumbnail ? 551 : 1102}
+          controls={!isThumbnail}
+          preload='metadata'
+          onLoadedMetadata={
+            isThumbnail
+              ? (e) => {
+                  e.target.currentTime = 0;
+                }
+              : null
+          }
+          src={media.url}
+          type={media.mimeType}
+          style={{ objectFit: "cover" }}
+        >
+          <source src={media.url} type={media.mimeType} />
+          Your browser does not support the video tag.
+        </video>
+      );
+    } else {
+      return (
+        <Image
+          src={media.url}
+          alt={media.alt}
+          width={isThumbnail ? 460 : 920}
+          height={isThumbnail ? 551 : 1102}
+          onLoadingComplete={() => setLoadedImagesCount((count) => count + 1)}
+          onError={() => setLoadedImagesCount((count) => count + 1)}
+        />
+      );
+    }
+  };
 
   return (
     <div className='img-grid-warp' style={{ height: `${containerHeight}px` }}>
-      <div
-        className={`img-big-warp ${isBlurEffect.first ? "blur-effect" : ""}`}
-      >
+      <div className='img-big-warp'>
         <div className='img-big-con'>
-          {allImages[selectedImageIndex] && (
-            <Image
-              src={allImages[selectedImageIndex].url}
-              alt={allImages[selectedImageIndex].alt}
-              width={920}
-              height={1102}
-              onLoadingComplete={handleImageLoad}
-              onError={handleImageLoad}
-            />
-          )}
+          {allMedia[selectedImageIndex] &&
+            renderMedia(allMedia[selectedImageIndex], false)}
         </div>
       </div>
-      <div
-        className={`img-grid-list ${isBlurEffect.last ? "blur-effect" : ""}`}
-      >
+      <div className='img-grid-list'>
         <Swiper
-          onSwiper={setSwiper}
+          ref={swiperRef}
           className='img-slider-warp'
           modules={[Navigation]}
           slidesPerView={4}
@@ -158,11 +170,13 @@ function DetailImg({ image, images, files }) {
           }}
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
-            updateBlurEffects();
+            updateBlurEffects(swiper);
           }}
-          onSlideChange={() => updateBlurEffects()}
+          onSlideChange={() => {
+            updateBlurEffects(swiperRef.current);
+          }}
         >
-          {allImages.map((img, index) => (
+          {allMedia.map((media, index) => (
             <SwiperSlide key={index} className='img-slide'>
               <div
                 className={`img-mini ${
@@ -170,16 +184,7 @@ function DetailImg({ image, images, files }) {
                 }`}
                 onClick={() => handleImageSelect(index)}
               >
-                <Image
-                  src={img.url}
-                  alt={img.alt}
-                  width={460}
-                  height={551}
-                  onLoadingComplete={() =>
-                    setLoadedImagesCount((count) => count + 1)
-                  }
-                  onError={() => setLoadedImagesCount((count) => count + 1)}
-                />
+                {renderMedia(media, true)}
               </div>
             </SwiperSlide>
           ))}

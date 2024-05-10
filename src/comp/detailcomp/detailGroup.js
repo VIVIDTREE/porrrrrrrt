@@ -46,7 +46,7 @@ function DetailGroup({ slug }) {
         },
         alt
       },
-      files[]{asset->{url}},
+      files[]{asset->{url, mimeType}},
       usedtools,
       hyperlink
     }`;
