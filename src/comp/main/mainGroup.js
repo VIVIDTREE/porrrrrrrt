@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react"; // useRef를 추가
+import React, { useState, useEffect } from "react";
 import Header from "./HeaderContent";
 import MainBanner from "./MainBanner";
 import "./mainGroup.css";
@@ -11,13 +11,12 @@ const MainGroup = () => {
   const [logoScale, setLogoScale] = useState(1);
   const [headerOpacity, setHeaderOpacity] = useState(1);
   const [logoOpacity, setLogoOpacity] = useState(1);
-  const [mainBannerData, setMainBannerData] = useState(null);
-  const mainViewRef = useRef(null); // useRef를 사용하여 DOM 참조 생성
+  const [mainBannerData, setMainBannerData] = useState(null); // 상태 이름은 그대로 유지
 
   useEffect(() => {
     const adjustHeaderAndLogoVisibility = () => {
       const viewportWidth = window.innerWidth;
-      const mainView = mainViewRef.current;
+      const mainView = document.querySelector(".main-view");
       if (mainView) {
         const mainViewRect = mainView.getBoundingClientRect();
         const startFadeOffset = 60;
@@ -62,25 +61,6 @@ const MainGroup = () => {
     loadData();
   }, []);
 
-  // 뷰포트 높이를 조정하는 useEffect 추가
-  useEffect(() => {
-    const updateHeight = () => {
-      const viewportHeight = window.innerHeight + "px";
-      if (mainViewRef.current) {
-        mainViewRef.current.style.height = viewportHeight;
-      }
-    };
-
-    updateHeight();
-    window.addEventListener("resize", updateHeight);
-    document.addEventListener("visibilitychange", updateHeight);
-
-    return () => {
-      window.removeEventListener("resize", updateHeight);
-      document.removeEventListener("visibilitychange", updateHeight);
-    };
-  }, []);
-
   const scaleValues = [
     { max: 380, scale: 0.38 },
     { max: 600, scale: 0.35 },
@@ -99,7 +79,7 @@ const MainGroup = () => {
   };
 
   return (
-    <section className='main-view pre1-5rem' ref={mainViewRef}>
+    <section className='main-view pre1-5rem'>
       <Header isScrolled={isScrolled} scale={logoScale} opacity={logoOpacity} />
       <MainBanner
         scale={logoScale}
