@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import client from "../../../sanity.js";
 import imageUrlBuilder from "@sanity/image-url";
@@ -16,6 +16,7 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
   const { name, image } = mainBannerData || {};
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const dispatch = useDispatch();
+  const bannerRef = useRef(null);
 
   useEffect(() => {
     if (image && !isImageLoaded) {
@@ -30,19 +31,19 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
   };
 
   useEffect(() => {
-    // 뷰포트 높이를 계산하고 업데이트하는 함수
     const updateHeight = () => {
       const viewportHeight = window.innerHeight + "px";
-      document.querySelector(".main-banner").style.height = viewportHeight;
+      if (bannerRef.current) {
+        bannerRef.current.style.height = viewportHeight;
+      }
     };
 
-    // 초기 로드 시 및 창 크기 변경, 탭 가시성 변경 시 높이 업데이트
     updateHeight();
     window.addEventListener("resize", updateHeight);
     document.addEventListener("visibilitychange", updateHeight);
 
     return () => {
-      window.removeEventListener("resize", updateHeight); // 이벤트 리스너 제거
+      window.removeEventListener("resize", updateHeight);
       document.removeEventListener("visibilitychange", updateHeight);
     };
   }, []);
@@ -52,7 +53,7 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
   }
 
   return (
-    <div className='main-banner'>
+    <div ref={bannerRef} className='main-banner'>
       <div className='logo2'>
         <div
           className='logo-img2'
