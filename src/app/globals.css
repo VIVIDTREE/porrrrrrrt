@@ -117,9 +117,14 @@
 /* Effects */
 body {
   margin: 0;
-  overflow: hidden;
+  overflow-x: hidden !important;
+  min-height: 100vh;
+  /* mobile viewport bug fix */
+  min-height: -webkit-fill-available;
 }
-
+@supports (-webkit-touch-callout: none) {
+  height: -webkit-fill-available;
+}
 .layout {
   padding: 0 1rem;
   box-sizing: border-box;
