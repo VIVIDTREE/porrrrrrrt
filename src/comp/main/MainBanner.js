@@ -17,28 +17,6 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const dispatch = useDispatch();
   const bannerRef = useRef(null);
-
-  useEffect(() => {
-    const updateHeight = () => {
-      requestAnimationFrame(() => {
-        const viewportHeight = window.innerHeight + "px";
-        if (bannerRef.current) {
-          bannerRef.current.style.height = viewportHeight;
-        }
-      });
-    };
-
-    document.addEventListener("DOMContentLoaded", updateHeight);
-    window.addEventListener("resize", updateHeight);
-    document.addEventListener("visibilitychange", updateHeight);
-
-    return () => {
-      window.removeEventListener("resize", updateHeight);
-      document.removeEventListener("visibilitychange", updateHeight);
-      document.removeEventListener("DOMContentLoaded", updateHeight);
-    };
-  }, []);
-
   useEffect(() => {
     if (image && !isImageLoaded) {
       dispatch({ type: "SET_LOADING" });
@@ -46,27 +24,48 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
   }, [image, isImageLoaded, dispatch]);
 
   const handleLoad = () => {
-    setIsImageLoaded(true);
-    dispatch({ type: "SET_LOADED" });
-    dispatch({ type: "DATA_LOADED" });
+    setIsImageLoaded(true); // 이미지 로드 상태 업데이트
+    dispatch({ type: "SET_LOADED" }); // 로딩 완료 액션 디스패치
+    dispatch({ type: "DATA_LOADED" }); // 데이터 로드 완료 액션 디스패치
   };
+  useEffect(() => {
+    const updateHeight = () => {
+      const viewportHeight = window.innerHeight + "px";
+      if (bannerRef.current) {
+        bannerRef.current.style.height = viewportHeight;
+      }
+    };
 
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    document.addEventListener("visibilitychange", updateHeight);
+
+    return () => {
+      window.removeEventListener("resize", updateHeight);
+      document.removeEventListener("visibilitychange", updateHeight);
+    };
+  }, []);
   if (!mainBannerData) {
     return null;
   }
 
   return (
     <div className='main-banner' ref={bannerRef}>
-      <div className='logo2' style={{ transform: `scale(${scale})`, opacity }}>
-        <Image
-          src='/src/logo.png'
-          alt={name}
-          width={2560}
-          height={900}
-          layout='responsive'
-          priority
-          onLoad={handleLoad}
-        />
+      <div className='logo2'>
+        <div
+          className='logo-img2'
+          style={{ transform: `scale(${scale})`, opacity }}
+        >
+          <Image
+            src='/src/logo.png'
+            alt={name}
+            width={2560}
+            height={900}
+            layout='responsive'
+            priority
+            onLoad={handleLoad}
+          />
+        </div>
       </div>
       <div className='main-warp'>
         <Image
