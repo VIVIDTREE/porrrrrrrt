@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import client from "../../../sanity.js";
 import imageUrlBuilder from "@sanity/image-url";
@@ -16,7 +16,7 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
   const { name, image } = mainBannerData || {};
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const dispatch = useDispatch();
-
+  const bannerRef = useRef(null);
   useEffect(() => {
     if (image && !isImageLoaded) {
       dispatch({ type: "SET_LOADING" });
@@ -28,13 +28,29 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
     dispatch({ type: "SET_LOADED" }); // 로딩 완료 액션 디스패치
     dispatch({ type: "DATA_LOADED" }); // 데이터 로드 완료 액션 디스패치
   };
+  useEffect(() => {
+    const updateHeight = () => {
+      const viewportHeight = window.innerHeight + "px";
+      if (bannerRef.current) {
+        bannerRef.current.style.height = viewportHeight;
+      }
+    };
 
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    document.addEventListener("visibilitychange", updateHeight);
+
+    return () => {
+      window.removeEventListener("resize", updateHeight);
+      document.removeEventListener("visibilitychange", updateHeight);
+    };
+  }, []);
   if (!mainBannerData) {
     return null;
   }
 
   return (
-    <div className='main-banner'>
+    <div className='main-banner' ref={bannerRef}>
       <div className='logo2'>
         <div
           className='logo-img2'
