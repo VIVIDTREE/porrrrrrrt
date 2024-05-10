@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import client from "../../../sanity.js";
 import imageUrlBuilder from "@sanity/image-url";
@@ -16,18 +16,26 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
   const { name, image } = mainBannerData || {};
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const dispatch = useDispatch();
-  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+  const bannerRef = useRef(null);
 
   useEffect(() => {
-    const handleResize = () => {
-      setTimeout(() => {
-        setWindowHeight(window.innerHeight);
-      }, 300);
+    const updateHeight = () => {
+      requestAnimationFrame(() => {
+        const viewportHeight = window.innerHeight + "px";
+        if (bannerRef.current) {
+          bannerRef.current.style.height = viewportHeight;
+        }
+      });
     };
-    window.addEventListener("resize", handleResize);
+
+    document.addEventListener("DOMContentLoaded", updateHeight);
+    window.addEventListener("resize", updateHeight);
+    document.addEventListener("visibilitychange", updateHeight);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", updateHeight);
+      document.removeEventListener("visibilitychange", updateHeight);
+      document.removeEventListener("DOMContentLoaded", updateHeight);
     };
   }, []);
 
@@ -48,22 +56,17 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
   }
 
   return (
-    <div className='main-banner' style={{ height: `${windowHeight}px` }}>
-      <div className='logo2'>
-        <div
-          className='logo-img2'
-          style={{ transform: `scale(${scale})`, opacity }}
-        >
-          <Image
-            src='/src/logo.png'
-            alt={name}
-            width={2560}
-            height={900}
-            layout='responsive'
-            priority
-            onLoad={handleLoad}
-          />
-        </div>
+    <div className='main-banner' ref={bannerRef}>
+      <div className='logo2' style={{ transform: `scale(${scale})`, opacity }}>
+        <Image
+          src='/src/logo.png'
+          alt={name}
+          width={2560}
+          height={900}
+          layout='responsive'
+          priority
+          onLoad={handleLoad}
+        />
       </div>
       <div className='main-warp'>
         <Image
