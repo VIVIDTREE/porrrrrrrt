@@ -70,7 +70,7 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
           />
         </div>
       </div>
-      <div className='main-warp'>
+      <div ref={bannerRef} className='main-warp'>
         <Image
           className='main-img-warp'
           src={`${urlFor(image)}?fm=webp&auto=format`}
