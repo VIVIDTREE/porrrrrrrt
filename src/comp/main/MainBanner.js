@@ -23,27 +23,29 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
     }
   }, [image, isImageLoaded, dispatch]);
 
-  useEffect(() => {
-    const updateHeight = () => {
-      const viewportHeight = window.innerHeight + "px";
-      document.querySelector(".main-banner").style.height = viewportHeight;
-    };
-
-    updateHeight();
-    window.addEventListener("resize", updateHeight);
-    document.addEventListener("visibilitychange", updateHeight);
-
-    return () => {
-      window.removeEventListener("resize", updateHeight);
-      document.removeEventListener("visibilitychange", updateHeight);
-    };
-  }, []);
-
   const handleLoad = () => {
     setIsImageLoaded(true); // 이미지 로드 상태 업데이트
     dispatch({ type: "SET_LOADED" }); // 로딩 완료 액션 디스패치
     dispatch({ type: "DATA_LOADED" }); // 데이터 로드 완료 액션 디스패치
   };
+
+  useEffect(() => {
+    // 뷰포트 높이를 계산하고 업데이트하는 함수
+    const updateHeight = () => {
+      const viewportHeight = window.innerHeight + "px";
+      document.querySelector(".main-banner").style.height = viewportHeight;
+    };
+
+    // 초기 로드 시 및 창 크기 변경, 탭 가시성 변경 시 높이 업데이트
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    document.addEventListener("visibilitychange", updateHeight);
+
+    return () => {
+      window.removeEventListener("resize", updateHeight); // 이벤트 리스너 제거
+      document.removeEventListener("visibilitychange", updateHeight);
+    };
+  }, []);
 
   if (!mainBannerData) {
     return null;
