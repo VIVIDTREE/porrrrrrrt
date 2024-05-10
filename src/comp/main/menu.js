@@ -65,7 +65,7 @@ const MenuContent = ({ toggleMenu }) => {
   useEffect(() => {
     const updateHeight = () => {
       const viewportHeight = window.innerHeight + "px";
-      document.body.style.height = viewportHeight; // body에 직접 높이 적용
+      document.querySelector(".menu-warp").style.height = viewportHeight;
     };
 
     updateHeight();
