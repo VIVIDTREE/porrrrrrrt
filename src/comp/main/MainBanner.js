@@ -20,9 +20,11 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
 
   useEffect(() => {
     const handleResize = () => {
-      setWindowHeight(window.innerHeight);
+      // Delay handling the resize event until the browser has updated the viewport height
+      setTimeout(() => {
+        setWindowHeight(window.innerHeight);
+      }, 300);
     };
-
     window.addEventListener("resize", handleResize);
 
     // Clean up the event listener on component unmount
@@ -48,7 +50,7 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
   }
 
   return (
-    <div className='main-banner' style={{ height: windowHeight }}>
+    <div className='main-banner' style={{ height: `${windowHeight}px` }}>
       <div className='logo2'>
         <div
           className='logo-img2'
