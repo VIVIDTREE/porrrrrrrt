@@ -23,6 +23,22 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
     }
   }, [image, isImageLoaded, dispatch]);
 
+  useEffect(() => {
+    const updateHeight = () => {
+      const viewportHeight = window.innerHeight + "px";
+      document.querySelector(".main-banner").style.height = viewportHeight;
+    };
+
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    document.addEventListener("visibilitychange", updateHeight);
+
+    return () => {
+      window.removeEventListener("resize", updateHeight);
+      document.removeEventListener("visibilitychange", updateHeight);
+    };
+  }, []);
+
   const handleLoad = () => {
     setIsImageLoaded(true); // 이미지 로드 상태 업데이트
     dispatch({ type: "SET_LOADED" }); // 로딩 완료 액션 디스패치

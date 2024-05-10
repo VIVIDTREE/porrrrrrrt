@@ -15,6 +15,28 @@
   height: fit-content;
   cursor: pointer;
 }
+.menu-warp {
+  pointer-events: none;
+  overflow-y: auto;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  right: 0;
+  bottom: auto;
+  left: 0;
+  height: 100vh;
+  background: var(--cream);
+  visibility: hidden;
+  opacity: 0;
+  gap: 3rem;
+  display: flex;
+  flex-direction: column;
+}
+.menu-warp.show {
+  opacity: 1;
+  pointer-events: all;
+  visibility: visible;
+}
 .contact {
   cursor: pointer;
   display: flex;

@@ -17,21 +17,6 @@ const Header = ({ logoOpacity = 1 }) => {
     document.body.style.overflow = menu ? "hidden" : "unset";
   }, [menu]);
 
-  useEffect(() => {
-    const updateHeight = () => {
-      const viewportHeight = window.innerHeight + "px";
-      document.querySelector(".menu-warp").style.height = viewportHeight;
-    };
-
-    updateHeight();
-    window.addEventListener("resize", updateHeight);
-    document.addEventListener("visibilitychange", updateHeight);
-
-    return () => {
-      window.removeEventListener("resize", updateHeight);
-      document.removeEventListener("visibilitychange", updateHeight);
-    };
-  }, []);
   return (
     <>
       <div className='header pre1-5rem'>
