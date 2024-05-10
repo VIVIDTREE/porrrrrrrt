@@ -20,14 +20,12 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
 
   useEffect(() => {
     const handleResize = () => {
-      // Delay handling the resize event until the browser has updated the viewport height
       setTimeout(() => {
         setWindowHeight(window.innerHeight);
       }, 300);
     };
     window.addEventListener("resize", handleResize);
 
-    // Clean up the event listener on component unmount
     return () => {
       window.removeEventListener("resize", handleResize);
     };
