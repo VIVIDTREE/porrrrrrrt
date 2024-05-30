@@ -57,7 +57,7 @@ const MainBanner = ({ scale, opacity, mainBannerData }) => {
           style={{ transform: `scale(${scale})`, opacity }}
         >
           <Image
-            src='/src/logo.png'
+            src='/src/logo_w.png'
             alt={name}
             width={2560}
             height={900}
