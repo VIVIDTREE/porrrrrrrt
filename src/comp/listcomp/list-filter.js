@@ -35,6 +35,7 @@ function ListFilter({ onSortChange }) {
         <button
           className='list-btn pre1-5remSlim font btn-def'
           onClick={handleToggle}
+          style={{ textDecoration: "none", color: "inherit" }}
         >
           <div className='btn-text'>View</div>
           <div className='btn-plus'>+</div>
