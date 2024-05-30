@@ -12,6 +12,7 @@ const HeaderContent = ({ isScrolled }) => {
       className={`header-warp fixed ${
         isScrolled ? "header-bottom bg-color" : ""
       }`}
+      style={{ color: "#fff" }}
     >
       <div>
         <Header logoOpacity={logoOpacity} />
