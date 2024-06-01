@@ -41,4 +41,7 @@
     display: flex;
     flex-direction: column;
   }
+  .about-detail-wrap {
+    grid-template-rows: 1fr 4fr;
+  }
 }
