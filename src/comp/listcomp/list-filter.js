@@ -30,14 +30,12 @@ function ListFilter({ onSortChange }) {
   }, [activeRef]);
 
   return (
-    <div
-      className='list-page-view font'
-      style={{ textDecoration: "none", color: "inherit" }}
-    >
+    <div className='list-page-view font'>
       {!isActive && (
         <button
           className='list-btn pre1-5remSlim font btn-def'
           onClick={handleToggle}
+          style={{ textDecoration: "none", color: "inherit" }}
         >
           <div className='btn-text'>View</div>
           <div className='btn-plus'>+</div>
@@ -51,6 +49,7 @@ function ListFilter({ onSortChange }) {
               currentSortType === "default" ? "active" : ""
             }`}
             onClick={() => handleSort("default")}
+            style={{ textDecoration: "none", color: "inherit" }}
           >
             <div className='btn-text'>Default</div>
           </button>
@@ -59,6 +58,7 @@ function ListFilter({ onSortChange }) {
               currentSortType === "az" ? "active" : ""
             }`}
             onClick={() => handleSort("az")}
+            style={{ textDecoration: "none", color: "inherit" }}
           >
             <div className='btn-text'>A - Z</div>
           </button>
@@ -67,6 +67,7 @@ function ListFilter({ onSortChange }) {
               currentSortType === "new" ? "active" : ""
             }`}
             onClick={() => handleSort("new")}
+            style={{ textDecoration: "none", color: "inherit" }}
           >
             <div className='btn-text'>New</div>
           </button>
@@ -75,6 +76,7 @@ function ListFilter({ onSortChange }) {
               currentSortType === "list" ? "active" : ""
             }`}
             onClick={() => handleSort("list")}
+            style={{ textDecoration: "none", color: "inherit" }}
           >
             <div className='btn-text'>List</div>
           </button>
