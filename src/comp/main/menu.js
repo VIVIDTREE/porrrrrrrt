@@ -60,23 +60,8 @@ const MenuContent = ({ toggleMenu }) => {
     setMenuLists(newMenuLists);
   }, [menuItems, totalCount]);
 
-  useEffect(() => {
-    function handleResize() {
-      const navBarHeight = 50; // 네비게이터바의 높이
-      const windowHeight = window.innerHeight;
-      const newHeight = windowHeight - navBarHeight;
-      document.querySelector(".menu-warp").style.height = `${newHeight}px`;
-    }
-
-    window.addEventListener("resize", handleResize);
-    handleResize(); // 컴포넌트 마운트 시 초기 크기 설정
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   const formatCount = (count) => count.toString().padStart(2, "0");
+
   return (
     <>
       <div className='header-warp back'>
