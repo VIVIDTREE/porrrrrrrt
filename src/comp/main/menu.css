@@ -16,7 +16,7 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding-bottom: 58px;
+  padding-bottom: 10vh;
 }
 .menu-warp.show {
   opacity: 1;
