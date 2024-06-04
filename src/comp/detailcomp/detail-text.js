@@ -53,6 +53,9 @@ function DetailText({ contentDetail }) {
             거치는 과정에서 초기 작업 의도와는 조금 다른 레이아웃이나 구성 일 수
             있습니다.
           </div>
+          <div className='detail-notice'>
+            2. 모든 작업물은 기획부터 제작까지 모두 제가 담당하였습니다.
+          </div>
         </div>
         <div className='detail-tool'>
           <div className='tool-title pre1rem'>Tools used</div>
